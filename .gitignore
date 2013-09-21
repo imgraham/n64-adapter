@@ -1,0 +1,7 @@
+*.o
+*.o.d
+*.err
+*.lst
+*.map
+*.cof
+N64Adapter.X/nbproject/Makefile-genesis.properties
