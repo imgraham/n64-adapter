@@ -21,12 +21,8 @@ PollController              ; Send the polling signal (0b000000011)
 	; Part 1 - Read the N64 controller and store the status values
     movlw 0x20              ; 0x20 = 32 bits
     movwf d4                ; contains the number of buttons
-
-    ;movlw controller_data              ; set up the array adress
-    ;movwf FSR0L
-	;movlw INDF0
-	;movwf FSR0L
-	LFSR 0,controller_data
+             
+	LFSR 0,controller_data	; set up the array address
 
     movlw 0x07              ; number of zeros that need to be sent
     movwf d2
@@ -39,8 +35,6 @@ PollController              ; Send the polling signal (0b000000011)
 	movwf countHigh
 
     zero
-        ;movlw 0x00
-        ;movwf LATB
 		bcf LATC, 2
     	bcf TRISC, 2
 
@@ -50,8 +44,6 @@ PollController              ; Send the polling signal (0b000000011)
             decfsz d1
             goto zeroloop
 
-        ;movlw 0x80
-        ;movwf LATB
     	bsf TRISC, 2
 		nop
 		nop
@@ -64,8 +56,6 @@ PollController              ; Send the polling signal (0b000000011)
         goto zero
 
     one
-        ;movlw 0x00
-        ;movwf LATB
 		bcf LATC, 2
     	bcf TRISC, 2
 
@@ -81,8 +71,7 @@ PollController              ; Send the polling signal (0b000000011)
         nop
         nop
         nop		
-        ;movlw 0x80
-        ;movwf LATB
+
     	bsf TRISC, 2
 		nop
         movlw 0x07
@@ -110,8 +99,7 @@ PollController              ; Send the polling signal (0b000000011)
         nop
         nop
         nop		
-        ;movlw 0x80
-        ;movwf LATB
+
     	bsf TRISC, 2
 		nop
         movlw 0x02
@@ -144,7 +132,7 @@ PollController              ; Send the polling signal (0b000000011)
 				goto discardData
 			btfss PORTC, 2      ; continue if low
 			goto waitHigh
-;
+
 		waitLow
 			dcfsnz countHigh
 				goto discardData
@@ -153,16 +141,17 @@ PollController              ; Send the polling signal (0b000000011)
 
 		nextBit
 
-		  movf countLow, W
-		  ;addlw 0xFF           ; eg if RAMx <= 5 ... addlw d'250'
-		  subwf countHigh, W
-			movlw 0xFF
-		  btfsc STATUS, C
-
+		; determine which part was longer (high vs low)
+		; store FF or 00 to represent 1 or 0
+		movf countLow, W
+		subwf countHigh, W
+		movlw 0xFF
+		btfsc STATUS, C
 		movlw 0x00
         movwf INDF0         ; Wait & store the value of the bit in the array
         incf FSR0L          ; Go to next adress in the array
 
+		; reset count variables for next loop
 		movlw 0x7F
         movwf countLow
 		movwf countHigh
@@ -182,19 +171,8 @@ discardData
 	movlw 0xFF
     movwf INDF0         ; Wait & store the value of the bit in the array
 return
-	
 
-delay   movlw   0x5f        ; +- 1500 uS = 1.5 ms
-        movwf   d1
-outer   movlw   0x60
-        movwf   d2
-inner   nop
-        nop
-        decfsz  d2
-        goto    inner       ; Inner loop = 5 cycles = 1uS
-        decfsz  d1
-        goto    outer       ; outer loop = inner + 4 cycles
-return
-
+; export PollController function to C
 GLOBAL PollController
+
 end
