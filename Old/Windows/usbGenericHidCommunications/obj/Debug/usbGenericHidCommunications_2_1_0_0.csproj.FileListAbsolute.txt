@@ -1,0 +1,5 @@
+C:\Users\Simon Inns\Documents\Visual Studio 2010\Projects\Development\USB Generic HID reference application 2_0_0_0\usbGenericHidCommunications\bin\Debug\usbGenericHidCommunications.dll
+C:\Users\Simon Inns\Documents\Visual Studio 2010\Projects\Development\USB Generic HID reference application 2_0_0_0\usbGenericHidCommunications\bin\Debug\usbGenericHidCommunications.pdb
+C:\Users\Simon Inns\Documents\Visual Studio 2010\Projects\Development\USB Generic HID reference application 2_0_0_0\usbGenericHidCommunications\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Simon Inns\Documents\Visual Studio 2010\Projects\Development\USB Generic HID reference application 2_0_0_0\usbGenericHidCommunications\obj\Debug\usbGenericHidCommunications.dll
+C:\Users\Simon Inns\Documents\Visual Studio 2010\Projects\Development\USB Generic HID reference application 2_0_0_0\usbGenericHidCommunications\obj\Debug\usbGenericHidCommunications.pdb

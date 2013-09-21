@@ -1,0 +1,5 @@
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\usbGenericHidCommunications\bin\Release\usbGenericHidCommunications.dll
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\usbGenericHidCommunications\bin\Release\usbGenericHidCommunications.pdb
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\usbGenericHidCommunications\obj\Release\usbGenericHidCommunications_3_0_0_0.csprojResolveAssemblyReference.cache
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\usbGenericHidCommunications\obj\Release\usbGenericHidCommunications.dll
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\usbGenericHidCommunications\obj\Release\usbGenericHidCommunications.pdb

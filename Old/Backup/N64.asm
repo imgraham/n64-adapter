@@ -1,0 +1,218 @@
+#include <P18F14K50.INC>
+
+EXTERN controller_data
+
+cblock
+    d1
+    d2
+    d3
+    d4
+	countLow
+	countHigh
+endc
+
+CODE
+InitController
+
+    movlw 0x00
+    movwf LATC
+    movwf TRISC
+    movwf PORTC
+
+    movlw 0x04              ; initalise the line = HIGH
+    movwf TRISC
+return
+
+PollController              ; Send the polling signal (0b000000011)
+    ; Part 1 - Read the N64 controller and store the status values
+    movlw 0x22              ; 0x21 = 33 bits
+    movwf d4                ; contains the number of buttons
+
+	PUSH FSR0H
+	PUSH FSR0L
+	PUSH FSR1L
+	PUSH FSR2L
+
+    ;movlw controller_data              ; set up the array adress
+    ;movwf FSR0L
+	;movlw INDF0
+	;movwf FSR0L
+	LFSR 0,controller_data
+
+    movlw 0x07              ; number of zeros that need to be sent
+    movwf d2
+
+    movlw 0x02              ; number of ones that need to be sent
+    movwf d3
+
+    zero
+        ;movlw 0x00
+        ;movwf LATB
+		bcf LATC, 2
+    	bcf TRISC, 2
+
+        movlw 0x0B
+        movwf d1
+        zeroloop            ; 9 instruction cycles
+            decfsz d1
+            goto zeroloop
+
+        ;movlw 0x80
+        ;movwf LATB
+    	bsf TRISC, 2
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+        decfsz d2
+        goto zero
+
+    one
+        ;movlw 0x00
+        ;movwf LATB
+		bcf LATC, 2
+    	bcf TRISC, 2
+
+        nop
+        nop
+        nop
+
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop		
+        ;movlw 0x80
+        ;movwf LATB
+    	bsf TRISC, 2
+		nop
+        movlw 0x07
+        movwf d1
+        oneloop             ; 8 instruction cycles
+            nop
+            decfsz d1
+            goto oneloop
+        decfsz d3
+        goto one
+
+	;read the response
+    bsf TRISC, 2            ; RB7 as input  (is also last instruction of poll)
+	nop
+
+	;wait for line to go low
+	waitLowLoop
+		btfsc PORTC, 2      ; continue if low
+		goto waitLowLoop
+
+    readLoop                ; read all 33 bits and store them on locations 0x20 etc.
+
+        nop                 ; Wait
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        ;nop
+        ;nop
+        ;nop
+
+        movlw 0xFF          ; if bit is one
+        btfss PORTC, 2      ; read the bit (9th instruction)
+        movlw 0x00          ; if bit is zero
+
+        movwf INDF0         ; Wait & store the value of the bit in the array
+        incf FSR0L          ; Go to next adress in the array
+
+        nop
+        nop
+        nop
+        nop
+        nop
+
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+        nop
+
+		nop
+		nop
+		nop
+
+        decfsz d4           ; end loop if all 33 bits are read
+    goto readLoop
+
+;	; Blink some leds
+;	bcf LATB,5
+;	bcf LATB,4
+;	;bcf LATB,3
+;
+;    LFSR 0,controller_data
+;    movlw 0x20              ; led RB5
+;    btfsc INDF0, 0
+;    iorwf LATB, PORTB
+;
+;    incf FSR0L              ; read B button (0x21) from array
+;    movlw 0x10              ; led RB4
+;    btfsc INDF0, 0
+;    iorwf LATB, PORTB
+;
+;    ;incf FSR0L              ; read Z button (0x22) from array
+;    ;movlw 0x08              ; led RB3
+;    ;btfsc INDF0, 0
+;    ;iorwf LATB, PORTB
+;
+;    ;call delay
+;	;call delay ;call second time, just because
+
+	POP FSR2L
+	POP FSR1L
+	POP FSR0L
+	POP FSR0H
+
+return
+
+
+delay   movlw   0x5f        ; +- 1500 uS = 1.5 ms
+        movwf   d1
+outer   movlw   0x60
+        movwf   d2
+inner   nop
+        nop
+        decfsz  d2
+        goto    inner       ; Inner loop = 5 cycles = 1uS
+        decfsz  d1
+        goto    outer       ; outer loop = inner + 4 cycles
+return
+
+GLOBAL InitController
+GLOBAL PollController
+end

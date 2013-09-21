@@ -1,0 +1,34 @@
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 3 : Found directive in column 1. (EXTERN)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 4 : Found directive in column 1. (EXTERN)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 6 : Found directive in column 1. (cblock)
+Message[313] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 6 : CBLOCK constants will start with a value of 0.
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 13 : Found directive in column 1. (ENDC)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 15 : Found directive in column 1. (CODE)
+Warning[203] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 25 : Found opcode in column 1. (return)
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 32 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 33 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 34 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 35 : Extraneous arguments on the line.
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 53 : Found label after column 1. (zero)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 61 : Found label after column 1. (zeroloop)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 78 : Found label after column 1. (one)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 102 : Found label after column 1. (oneloop)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 116 : Found label after column 1. (waitLowLoop)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 125 : Found label after column 1. (readLoop)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 127 : Found label after column 1. (waitHigh)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 133 : Found label after column 1. (waitLow)
+Warning[207] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 139 : Found label after column 1. (nextBit)
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 191 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 192 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 193 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 194 : Extraneous arguments on the line.
+Warning[203] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 196 : Found opcode in column 1. (return)
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 203 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 204 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 205 : Extraneous arguments on the line.
+Warning[211] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 206 : Extraneous arguments on the line.
+Warning[203] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 207 : Found opcode in column 1. (return)
+Warning[203] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 220 : Found opcode in column 1. (return)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 222 : Found directive in column 1. (GLOBAL)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 223 : Found directive in column 1. (GLOBAL)
+Warning[205] C:\USERS\IAN\DOCUMENTS\PIC32 PROJ\N64 CONTROLLER\N64.ASM 224 : Found directive in column 1. (end)

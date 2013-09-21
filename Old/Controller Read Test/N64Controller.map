@@ -1,0 +1,650 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Tue Sep 17 18:43:30 2013
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+               _entry_scn       code   0x000000    program   0x000006
+                   .cinit    romdata   0x000006    program   0x00000e
+            .code_debug.o       code   0x000014    program   0x000228
+                    .code       code   0x00023c    program   0x0000fe
+               _cinit_scn       code   0x00033a    program   0x00009e
+             .code_main.o       code   0x0003d8    program   0x000036
+             _startup_scn       code   0x00040e    program   0x00001c
+                   STRING       code   0x00042a    program   0x00001c
+           .code___init.o       code   0x000446    program   0x000002
+         .romdata_c018i.o    romdata   0x000448    program   0x000000
+          .idata_main.o_i    romdata   0x000448    program   0x000023
+          .romdata_main.o    romdata   0x000448    program   0x000000
+        .romdata___init.o    romdata   0x000448    program   0x000000
+         .romdata_debug.o    romdata   0x000448    program   0x000000
+        .idata___init.o_i    romdata   0x00046b    program   0x000000
+         .idata_debug.o_i    romdata   0x00046b    program   0x000000
+         .idata_c018i.o_i    romdata   0x00046b    program   0x000000
+            .code_c018i.o       code   0x00046c    program   0x000000
+    .config_300000_main.o    romdata   0x300000    program   0x000001
+    .config_300001_main.o    romdata   0x300001    program   0x000001
+                 .tmpdata      udata   0x000000       data   0x000004
+                MATH_DATA      udata   0x000004       data   0x000002
+           .udata_debug.o      udata   0x000060       data   0x000086
+           .udata_c018i.o      udata   0x0000e6       data   0x00000a
+            .udata_main.o      udata   0x0000f0       data   0x000001
+           .idata_c018i.o      idata   0x0000f1       data   0x000000
+           .idata_debug.o      idata   0x0000f1       data   0x000000
+          .udata___init.o      udata   0x0000f1       data   0x000000
+          .idata___init.o      idata   0x0000f1       data   0x000000
+                   .stack      udata   0x000100       data   0x000100
+            .idata_main.o      idata   0x000200       data   0x000023
+              SFR_BANKED0      udata   0x000f53       data   0x00000d
+            SFR_UNBANKED0      udata   0x000f60       data   0x0000a0
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00046a      
+                            0x300000    0x300001      
+            1133 out of 16664 program addresses used, program memory utilization is 6%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+           PollController   0x00023c    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+       ___return_lbl00000   0x000004    program     static                          
+       ___return_lbl00001   0x000428    program     static                          
+       ___return_lbl00002   0x0003d6    program     static                          
+               __config_0   0x300000    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+               __config_1   0x300001    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                   __init   0x000446    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
+            __zero_memory   0x00031a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                _do_cinit   0x00033a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                   _entry   0x000000    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                 _startup   0x00040e    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+          applicationInit   0x00040c    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                compare_l   0x000330    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+    copyDebugToSendBuffer   0x000156    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                copy_loop   0x0003ac    program     static                          
+            copy_one_byte   0x0003b2    program     static                          
+          debugInitialise   0x000014    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                 debugOut   0x000024    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                    delay   0x000300    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+              discardData   0x0002f6    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                     done   0x0003d6    program     static                          
+             done_copying   0x0003c0    program     static                          
+            initialisePic   0x0003f6    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                    inner   0x000308    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                     jEnd   0x000444    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                    jLoop   0x00043a    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                     loop   0x00041e    program     static                          
+                   loop_h   0x000328    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   loop_l   0x000332    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     main   0x0003d8    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                  nextBit   0x0002d2    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                      one   0x000278    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                  oneloop   0x00029a    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                    outer   0x000304    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                 readLoop   0x0002ba    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                   strlen   0x00042a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                     test   0x000354    program     static                          
+                 waitHigh   0x0002ba    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                  waitLow   0x0002c6    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+              waitLowLoop   0x0002aa    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                     zero   0x000254    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+               zero_block   0x000328    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 zeroloop   0x00025c    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                   ADCON0   0x000fc2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON0bits   0x000fc2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADCON1   0x000fc1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON1bits   0x000fc1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADCON2   0x000fc0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON2bits   0x000fc0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    ADRES   0x000fc3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADRESH   0x000fc4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADRESL   0x000fc3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    ANSEL   0x000f7e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ANSELH   0x000f7f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ANSELHbits   0x000f7f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                ANSELbits   0x000f7e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  BAUDCON   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              BAUDCONbits   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  BAUDCTL   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              BAUDCTLbits   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      BSR   0x000fe0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CCP1CON   0x000fbd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CCP1CONbits   0x000fbd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    CCPR1   0x000fbe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   CCPR1H   0x000fbf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   CCPR1L   0x000fbe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM1CON0   0x000f6d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM1CON0bits   0x000f6d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM2CON0   0x000f6b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM2CON0bits   0x000f6b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM2CON1   0x000f6c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM2CON1bits   0x000f6c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRA   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRAbits   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRB   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRBbits   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRC   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRCbits   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  ECCP1AS   0x000fb6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              ECCP1ASbits   0x000fb6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    EEADR   0x000fa9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                EEADRbits   0x000fa9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EECON1   0x000fa6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               EECON1bits   0x000fa6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EECON2   0x000fa7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EEDATA   0x000fa8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR0   0x000fe9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR0H   0x000fea       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR0L   0x000fe9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR1   0x000fe1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR1H   0x000fe2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR1L   0x000fe1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR2   0x000fd9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR2H   0x000fda       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR2L   0x000fd9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF0   0x000fef       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF1   0x000fe7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF2   0x000fdf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   INTCON   0x000ff2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  INTCON2   0x000ff1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              INTCON2bits   0x000ff1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  INTCON3   0x000ff0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              INTCON3bits   0x000ff0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               INTCONbits   0x000ff2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IOCA   0x000f79       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IOCAbits   0x000f79       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IOCB   0x000f7a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IOCBbits   0x000f7a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IPR1   0x000f9f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IPR1bits   0x000f9f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IPR2   0x000fa2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IPR2bits   0x000fa2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATA   0x000f89       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATAbits   0x000f89       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATB   0x000f8a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATBbits   0x000f8a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATC   0x000f8b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATCbits   0x000f8b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   OSCCON   0x000fd3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  OSCCON2   0x000fd2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              OSCCON2bits   0x000fd2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               OSCCONbits   0x000fd3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  OSCTUNE   0x000f9b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              OSCTUNEbits   0x000f9b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                       PC   0x000ff9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      PCL   0x000ff9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PCLATH   0x000ffa       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PCLATU   0x000ffb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIE1   0x000f9d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIE1bits   0x000f9d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIE2   0x000fa0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIE2bits   0x000fa0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIR1   0x000f9e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIR1bits   0x000f9e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIR2   0x000fa1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIR2bits   0x000fa1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW0   0x000feb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW1   0x000fe3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW2   0x000fdb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTA   0x000f80       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTAbits   0x000f80       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTB   0x000f81       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTBbits   0x000f81       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTC   0x000f82       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTCbits   0x000f82       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC0   0x000fed       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC1   0x000fe5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC2   0x000fdd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC0   0x000fee       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC1   0x000fe6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC2   0x000fde       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      PR2   0x000fcb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC0   0x000fec       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC1   0x000fe4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC2   0x000fdc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PROD   0x000ff3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PRODH   0x000ff4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PRODL   0x000ff3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PSTRCON   0x000fb9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              PSTRCONbits   0x000fb9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PWM1CON   0x000fb7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              PWM1CONbits   0x000fb7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     RCON   0x000fd0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 RCONbits   0x000fd0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    RCREG   0x000fae       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    RCSTA   0x000fab       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                RCSTAbits   0x000fab       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON0   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON0bits   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON1   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON1bits   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON2   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON2bits   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     SIGN   0x000004       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+                   SLRCON   0x000f76       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SLRCONbits   0x000f76       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    SPBRG   0x000faf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SPBRGH   0x000fb0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SRCON0   0x000f68       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SRCON0bits   0x000f68       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SRCON1   0x000f69       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SRCON1bits   0x000f69       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPADD   0x000fc8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPBUF   0x000fc9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPCON1   0x000fc6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPCON1bits   0x000fc6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPCON2   0x000fc5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPCON2bits   0x000fc5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPMSK   0x000f6f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SSPMSKbits   0x000f6f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPSTAT   0x000fc7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPSTATbits   0x000fc7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   STATUS   0x000fd8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               STATUSbits   0x000fd8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   STKPTR   0x000ffc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               STKPTRbits   0x000ffc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T0CON   0x000fd5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T0CONbits   0x000fd5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T1CON   0x000fcd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T1CONbits   0x000fcd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T2CON   0x000fca       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T2CONbits   0x000fca       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T3CON   0x000fb1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T3CONbits   0x000fb1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   TABLAT   0x000ff5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   TBLPTR   0x000ff6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRH   0x000ff7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRL   0x000ff6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRU   0x000ff8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR0H   0x000fd7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR0L   0x000fd6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR1H   0x000fcf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR1L   0x000fce       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TMR2   0x000fcc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR3H   0x000fb3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR3L   0x000fb2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      TOS   0x000ffd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSH   0x000ffe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSL   0x000ffd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSU   0x000fff       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISA   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISAbits   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISB   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISBbits   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISC   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISCbits   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TXREG   0x000fad       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TXSTA   0x000fac       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TXSTAbits   0x000fac       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UADDR   0x000f5c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UADDRbits   0x000f5c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UCFG   0x000f61       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UCFGbits   0x000f61       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UCON   0x000f64       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UCONbits   0x000f64       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEIE   0x000f5b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEIEbits   0x000f5b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEIR   0x000f5f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEIRbits   0x000f5f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP0   0x000f53       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP0bits   0x000f53       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP1   0x000f54       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP1bits   0x000f54       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP2   0x000f55       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP2bits   0x000f55       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP3   0x000f56       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP3bits   0x000f56       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP4   0x000f57       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP4bits   0x000f57       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP5   0x000f58       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP5bits   0x000f58       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP6   0x000f59       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP6bits   0x000f59       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP7   0x000f5a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP7bits   0x000f5a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UFRMH   0x000f5e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UFRMHbits   0x000f5e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UFRML   0x000f5d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UFRMLbits   0x000f5d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      UIE   0x000f60       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  UIEbits   0x000f60       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      UIR   0x000f62       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  UIRbits   0x000f62       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             USBOutHandle   0x000200       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                    USTAT   0x000f63       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                USTATbits   0x000f63       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON0   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON0bits   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON1   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON1bits   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON2   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON2bits   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                        W   0x000fe8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   WDTCON   0x000fd1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               WDTCONbits   0x000fd1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WPUA   0x000f77       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 WPUAbits   0x000f77       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WPUB   0x000f78       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 WPUBbits   0x000f78       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WREG   0x000fe8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                __FPFLAGS   0x000005       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+            __FPFLAGSbits   0x000005       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+                  __tmp_0   0x000000       data     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+         blinkStatusValid   0x000202       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+          controller_data   0x000203       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+    controller_data_error   0x0000f0       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                curr_byte   0x0000e9       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+               curr_entry   0x0000eb       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                 data_ptr   0x0000ed       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+              debugBuffer   0x000066       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+           debugBufferEnd   0x000062       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+         debugBufferLevel   0x000064       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+         debugBufferStart   0x000060       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                     prom   0x0000e6       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   _entry   0x000000    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+       ___return_lbl00000   0x000004    program     static                          
+          debugInitialise   0x000014    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                 debugOut   0x000024    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+    copyDebugToSendBuffer   0x000156    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+           PollController   0x00023c    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                     zero   0x000254    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                 zeroloop   0x00025c    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                      one   0x000278    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                  oneloop   0x00029a    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+              waitLowLoop   0x0002aa    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                 waitHigh   0x0002ba    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                 readLoop   0x0002ba    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                  waitLow   0x0002c6    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                  nextBit   0x0002d2    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+              discardData   0x0002f6    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                    delay   0x000300    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                    outer   0x000304    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+                    inner   0x000308    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\N64.asm
+            __zero_memory   0x00031a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               zero_block   0x000328    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   loop_h   0x000328    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                compare_l   0x000330    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   loop_l   0x000332    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                _do_cinit   0x00033a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                     test   0x000354    program     static                          
+                copy_loop   0x0003ac    program     static                          
+            copy_one_byte   0x0003b2    program     static                          
+             done_copying   0x0003c0    program     static                          
+                     done   0x0003d6    program     static                          
+       ___return_lbl00002   0x0003d6    program     static                          
+                     main   0x0003d8    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+            initialisePic   0x0003f6    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+          applicationInit   0x00040c    program     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                 _startup   0x00040e    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                     loop   0x00041e    program     static                          
+       ___return_lbl00001   0x000428    program     static                          
+                   strlen   0x00042a    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                    jLoop   0x00043a    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                     jEnd   0x000444    program     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\strlen.asm
+                   __init   0x000446    program     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\stdclib\__init.c
+               __config_0   0x300000    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+               __config_1   0x300001    program     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                  __tmp_0   0x000000       data     static C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                     SIGN   0x000004       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+                __FPFLAGS   0x000005       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+            __FPFLAGSbits   0x000005       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\math\cmath18.asm
+         debugBufferStart   0x000060       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+           debugBufferEnd   0x000062       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+         debugBufferLevel   0x000064       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+              debugBuffer   0x000066       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\debug.c
+                     prom   0x0000e6       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                curr_byte   0x0000e9       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+               curr_entry   0x0000eb       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+                 data_ptr   0x0000ed       data     static E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\startup\c018i.c
+    controller_data_error   0x0000f0       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+             USBOutHandle   0x000200       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+         blinkStatusValid   0x000202       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+          controller_data   0x000203       data     extern C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Controller Read Test\main.c
+                     UEP0   0x000f53       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP0bits   0x000f53       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP1bits   0x000f54       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP1   0x000f54       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP2bits   0x000f55       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP2   0x000f55       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP3bits   0x000f56       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP3   0x000f56       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP4   0x000f57       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP4bits   0x000f57       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP5bits   0x000f58       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP5   0x000f58       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP6   0x000f59       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP6bits   0x000f59       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEP7   0x000f5a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEP7bits   0x000f5a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEIE   0x000f5b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEIEbits   0x000f5b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UADDR   0x000f5c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UADDRbits   0x000f5c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UFRML   0x000f5d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UFRMLbits   0x000f5d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    UFRMH   0x000f5e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                UFRMHbits   0x000f5e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UEIR   0x000f5f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UEIRbits   0x000f5f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  UIEbits   0x000f60       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      UIE   0x000f60       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UCFG   0x000f61       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UCFGbits   0x000f61       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      UIR   0x000f62       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  UIRbits   0x000f62       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                USTATbits   0x000f63       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    USTAT   0x000f63       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 UCONbits   0x000f64       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     UCON   0x000f64       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SRCON0bits   0x000f68       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SRCON0   0x000f68       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SRCON1   0x000f69       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SRCON1bits   0x000f69       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM2CON0   0x000f6b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM2CON0bits   0x000f6b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM2CON1   0x000f6c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM2CON1bits   0x000f6c       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CM1CON0   0x000f6d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CM1CON0bits   0x000f6d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SSPMSKbits   0x000f6f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPMSK   0x000f6f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               SLRCONbits   0x000f76       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SLRCON   0x000f76       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 WPUAbits   0x000f77       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WPUA   0x000f77       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 WPUBbits   0x000f78       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WPUB   0x000f78       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IOCA   0x000f79       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IOCAbits   0x000f79       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IOCBbits   0x000f7a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IOCB   0x000f7a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    ANSEL   0x000f7e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                ANSELbits   0x000f7e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ANSELH   0x000f7f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ANSELHbits   0x000f7f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTA   0x000f80       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTAbits   0x000f80       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTB   0x000f81       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTBbits   0x000f81       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PORTC   0x000f82       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                PORTCbits   0x000f82       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATA   0x000f89       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATAbits   0x000f89       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATB   0x000f8a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATBbits   0x000f8a       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     LATC   0x000f8b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 LATCbits   0x000f8b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRA   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRAbits   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISAbits   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISA   0x000f92       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISBbits   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISB   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRB   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRBbits   0x000f93       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TRISCbits   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TRISC   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     DDRC   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 DDRCbits   0x000f94       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  OSCTUNE   0x000f9b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              OSCTUNEbits   0x000f9b       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIE1   0x000f9d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIE1bits   0x000f9d       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIR1bits   0x000f9e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIR1   0x000f9e       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IPR1bits   0x000f9f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IPR1   0x000f9f       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIE2   0x000fa0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIE2bits   0x000fa0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PIR2   0x000fa1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 PIR2bits   0x000fa1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 IPR2bits   0x000fa2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     IPR2   0x000fa2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EECON1   0x000fa6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               EECON1bits   0x000fa6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EECON2   0x000fa7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   EEDATA   0x000fa8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                EEADRbits   0x000fa9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    EEADR   0x000fa9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    RCSTA   0x000fab       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                RCSTAbits   0x000fab       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                TXSTAbits   0x000fac       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TXSTA   0x000fac       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TXREG   0x000fad       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    RCREG   0x000fae       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    SPBRG   0x000faf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SPBRGH   0x000fb0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T3CON   0x000fb1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T3CONbits   0x000fb1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR3L   0x000fb2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR3H   0x000fb3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              ECCP1ASbits   0x000fb6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  ECCP1AS   0x000fb6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PWM1CON   0x000fb7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              PWM1CONbits   0x000fb7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              BAUDCONbits   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  BAUDCON   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  BAUDCTL   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              BAUDCTLbits   0x000fb8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PSTRCON   0x000fb9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              PSTRCONbits   0x000fb9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON0bits   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON0   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON0bits   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON0   0x000fba       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON1bits   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON1   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON1   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON1bits   0x000fbb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              REFCON2bits   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  REFCON2   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 VREFCON2   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+             VREFCON2bits   0x000fbc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  CCP1CON   0x000fbd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              CCP1CONbits   0x000fbd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    CCPR1   0x000fbe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   CCPR1L   0x000fbe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   CCPR1H   0x000fbf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON2bits   0x000fc0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADCON2   0x000fc0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON1bits   0x000fc1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADCON1   0x000fc1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               ADCON0bits   0x000fc2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADCON0   0x000fc2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADRESL   0x000fc3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    ADRES   0x000fc3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   ADRESH   0x000fc4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPCON2bits   0x000fc5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPCON2   0x000fc5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPCON1   0x000fc6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPCON1bits   0x000fc6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  SSPSTAT   0x000fc7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              SSPSTATbits   0x000fc7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPADD   0x000fc8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   SSPBUF   0x000fc9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T2CON   0x000fca       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T2CONbits   0x000fca       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      PR2   0x000fcb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TMR2   0x000fcc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T1CON   0x000fcd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T1CONbits   0x000fcd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR1L   0x000fce       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR1H   0x000fcf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 RCONbits   0x000fd0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     RCON   0x000fd0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               WDTCONbits   0x000fd1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   WDTCON   0x000fd1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  OSCCON2   0x000fd2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              OSCCON2bits   0x000fd2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   OSCCON   0x000fd3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               OSCCONbits   0x000fd3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    T0CON   0x000fd5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                T0CONbits   0x000fd5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR0L   0x000fd6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    TMR0H   0x000fd7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   STATUS   0x000fd8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               STATUSbits   0x000fd8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR2   0x000fd9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR2L   0x000fd9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR2H   0x000fda       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW2   0x000fdb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC2   0x000fdc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC2   0x000fdd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC2   0x000fde       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF2   0x000fdf       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      BSR   0x000fe0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR1   0x000fe1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR1L   0x000fe1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR1H   0x000fe2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW1   0x000fe3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC1   0x000fe4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC1   0x000fe5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC1   0x000fe6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF1   0x000fe7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     WREG   0x000fe8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                        W   0x000fe8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     FSR0   0x000fe9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR0L   0x000fe9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    FSR0H   0x000fea       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PLUSW0   0x000feb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  PREINC0   0x000fec       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTDEC0   0x000fed       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                 POSTINC0   0x000fee       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    INDF0   0x000fef       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              INTCON3bits   0x000ff0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  INTCON3   0x000ff0       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+              INTCON2bits   0x000ff1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  INTCON2   0x000ff1       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   INTCON   0x000ff2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               INTCONbits   0x000ff2       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PRODL   0x000ff3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     PROD   0x000ff3       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                    PRODH   0x000ff4       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   TABLAT   0x000ff5       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRL   0x000ff6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   TBLPTR   0x000ff6       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRH   0x000ff7       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                  TBLPTRU   0x000ff8       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                       PC   0x000ff9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      PCL   0x000ff9       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PCLATH   0x000ffa       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   PCLATU   0x000ffb       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+               STKPTRbits   0x000ffc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                   STKPTR   0x000ffc       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSL   0x000ffd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                      TOS   0x000ffd       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSH   0x000ffe       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+                     TOSU   0x000fff       data     extern E:\c18v3.46\pic18-lt\cxx-framework\src\traditional\proc\p18f14k50.asm
+
+

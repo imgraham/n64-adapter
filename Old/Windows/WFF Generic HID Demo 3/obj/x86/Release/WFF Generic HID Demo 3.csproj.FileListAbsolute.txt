@@ -1,0 +1,20 @@
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\bin\Release\WFF Generic HID Demo 3.exe
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\bin\Release\WFF Generic HID Demo 3.pdb
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\bin\Release\usbGenericHidCommunications.dll
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\bin\Release\usbGenericHidCommunications.pdb
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.csprojResolveAssemblyReference.cache
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF_Generic_HID_Demo_3.Form1.resources
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF_Generic_HID_Demo_3.Properties.Resources.resources
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.csproj.GenerateResource.Cache
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.exe
+C:\Users\Ian\Documents\PIC32 Proj\WFF Generic HID Demo 3\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.pdb
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.exe
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.pdb
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.csprojResolveAssemblyReference.cache
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF_Generic_HID_Demo_3.Form1.resources
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF_Generic_HID_Demo_3.Properties.Resources.resources
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\obj\x86\Release\WFF Generic HID Demo 3.csproj.GenerateResource.Cache
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\bin\Release\WFF Generic HID Demo 3.exe
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\bin\Release\WFF Generic HID Demo 3.pdb
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\bin\Release\usbGenericHidCommunications.dll
+C:\Users\Ian\Documents\PIC32 Proj\N64 Controller\Windows\WFF Generic HID Demo 3\bin\Release\usbGenericHidCommunications.pdb
