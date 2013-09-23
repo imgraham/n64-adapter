@@ -92,7 +92,7 @@
 // function will work correctly.  If you do not require debug it's
 // recommended that you compile with the small memory model and 
 // remove any references to <strings.h> and sprintf().
-#define DEBUGON
+//#define DEBUGON
 
 // PIC to hardware pin mapping and control macros
 

@@ -1,39 +1,21 @@
 /************************************************************************
-	main.c
-
-	WFF USB Generic HID Demonstration 3
-    usbGenericHidCommunication reference firmware 3_0_0_0
-    Copyright (C) 2011 Simon Inns
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-	Email: simon.inns@gmail.com
-
+ *      main.c
+ *
+ *      N64 Adapter main. This file handles the USB communication and
+ *      retreiving data from the controller
+ *
+ *      ian.grhm@gmail.com
+ *      2013
 ************************************************************************/
 
 #ifndef MAIN_C
 #define MAIN_C
 
 // Global includes
-// Note: string.h is required for sprintf commands for debug
 #include <Compiler.h>
-
-#include <string.h>
 
 // Local includes
 #include "HardwareProfile.h"
-#include "debug.h"
 #include <Math.h>
 
 // Microchip Application Library includes
@@ -50,7 +32,7 @@
 	#error "This firmware only supports the PIC18F14K50 microcontroller."
 #endif
 
-// PIC18F4550/PIC18F2550 configuration for the WFF Generic HID test device
+// PIC18F14K50 Hardware Configuration
 #pragma config CPUDIV   = NOCLKDIV
 #pragma config USBDIV   = OFF
 
@@ -64,7 +46,7 @@
 
 #pragma config WDTEN 	= OFF
 
-// 35 bytes
+// 32 bytes
 typedef union _INTPUT_CONTROLS_TYPEDEF
 {
     struct
@@ -78,15 +60,15 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
             BYTE B5:1;
             BYTE B6:1;
             BYTE B7:1;
-            BYTE B8:1;//
+            BYTE B8:1;
             BYTE B9:1;
             BYTE B10:1;
-            BYTE :6;    //filler
+            BYTE :6;    //filler to byte-align
         } buttons;
         struct
         {
             BYTE hat_switch:4;
-            BYTE :4;	//filler
+            BYTE :4;	//filler to byte-align
         } hat_switch;
         struct
         {
@@ -96,7 +78,7 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
     } members;
 } INPUT_CONTROLS;
 
-USB_HANDLE lastTransmission_j1;
+USB_HANDLE lastTransmission;
 
 #define HAT_SWITCH_NORTH            0x0
 #define HAT_SWITCH_NORTH_EAST       0x1
@@ -117,8 +99,7 @@ USB_HANDLE lastTransmission_j1;
 #endif
 
 unsigned char ReceivedDataBuffer[16];
-//unsigned char ToSendDataBuffer[32];
-INPUT_CONTROLS joystick_input_j1; // 32 bytes
+INPUT_CONTROLS joystickUSBBuffer; // 32 bytes
 #pragma udata
 
 USB_HANDLE USBOutHandle = 0;
@@ -138,6 +119,9 @@ void USBCBSendResume(void);
 void highPriorityISRCode();
 void lowPriorityISRCode();
 
+// String for creating debug messages
+char debugString[64];
+
 #define round(X) (int)(X+0.5)
 
 // High-priority ISR handling function
@@ -145,12 +129,11 @@ void lowPriorityISRCode();
 void highPriorityISRCode()
 {
 	// Application specific high-priority ISR code goes here
-	
+
 	#if defined(USB_INTERRUPT)
 		// Perform USB device tasks
 		USBDeviceTasks();
 	#endif
-
 }
 
 // Low-priority ISR handling function
@@ -160,35 +143,28 @@ void lowPriorityISRCode()
 	// Application specific low-priority ISR code goes here
 }
 
-// String for creating debug messages
-char debugString[64];
-
 // Main program entry point
 void main(void)
 {   
-	UINT16 i;
-
-	// Initialise and configure the PIC ready to go
+    // Initialise and configure the PIC ready to go
     initialisePic();
 
-	// If we are running in interrupt mode attempt to attach the USB device
+    // If we are running in interrupt mode attempt to attach the USB device
     #if defined(USB_INTERRUPT)
         USBDeviceAttach();
     #endif
 
-	// Main processing loop
+    // Main processing loop
     while(1)
     {
         #if defined(USB_POLLING)
-			// If we are in polling mode the USB device tasks must be processed here
-			// (otherwise the interrupt is performing this task)
-	        USBDeviceTasks();
+            // If we are in polling mode the USB device tasks must be processed here
+            // (otherwise the interrupt is performing this task)
+            USBDeviceTasks();
         #endif
     	
     	// Process USB Commands
-        processUsbCommands();  
-
-        // Note: Other application specific actions can be placed here      
+        processUsbCommands();      
     }
 }
 
@@ -196,24 +172,24 @@ void main(void)
 void initialisePic(void)
 {
     // PIC port set up --------------------------------------------------------
-
-	// Default all pins to digital
+    // Default all pins to digital
     ANSEL = 0x00;
 
-	LATC = 0x00;
-	PORTC = 0x00;
-	TRISC = 0xFF;
+    //Initialize ports and default to input
+    LATC = 0x00;
+    PORTC = 0x00;
+    TRISC = 0xFF;
 
-	LATB = 0x00;
-	PORTB = 0x00;
-	TRISB = 0xFF;
+    LATB = 0x00;
+    PORTB = 0x00;
+    TRISB = 0xFF;
 
-	//disable watchdog
-	WDTCON = 0;
+    //disable watchdog
+    WDTCON = 0;
 
-	// If you have a VBUS sense pin (for self-powered devices when you
-	// want to detect if the USB host is connected) you have to specify
-	// your input pin in HardwareProfile.h
+    // If you have a VBUS sense pin (for self-powered devices when you
+    // want to detect if the USB host is connected) you have to specify
+    // your input pin in HardwareProfile.h
     #if defined(USE_USB_BUS_SENSE_IO)
     	tris_usb_bus_sense = INPUT_PIN;
     #endif
@@ -240,7 +216,7 @@ void applicationInit(void)
 {
     // Initialize the variable holding the USB handle for the last transmission
     USBOutHandle = 0;
-	lastTransmission_j1 = 0;
+	lastTransmission = 0;
 }
 
 // Process USB commands
@@ -249,130 +225,112 @@ void processUsbCommands(void)
     // Check if we are in the configured state; otherwise just return
     if((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1))
     {
-	    // We are not configured
-	    return;
-	}
-
-    // If the last transmision is complete send the joystick status
-    if(!HIDTxHandleBusy(lastTransmission_j1))
-    {
-		char XAxis, YAxis;
-		int XNew, YNew;
-		float cX, cY;
-		unsigned char hat;
-
-		PollController();
-
-		if(controller_data_error[0])
-			return;
-
-		// Set everything to the defult
-		joystick_input_j1.members.buttons.B1 = 0;
-		joystick_input_j1.members.buttons.B2 = 0;
-		joystick_input_j1.members.buttons.B3 = 0;
-		joystick_input_j1.members.buttons.B4 = 0;
-		joystick_input_j1.members.buttons.B5 = 0;
-		joystick_input_j1.members.buttons.B6 = 0;
-		joystick_input_j1.members.buttons.B7 = 0;
-		joystick_input_j1.members.buttons.B8 = 0;
-		joystick_input_j1.members.buttons.B9 = 0;
-		joystick_input_j1.members.buttons.B10 = 0;
-		joystick_input_j1.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
-
-		// Now adjust according to the joystick switch states
-		if (controller_data[0])
-			joystick_input_j1.members.buttons.B1 = 1;
-		if (controller_data[1])
-			joystick_input_j1.members.buttons.B2 = 1;
-		if (controller_data[2])
-			joystick_input_j1.members.buttons.B3 = 1;
-		if (controller_data[3])
-			joystick_input_j1.members.buttons.B4 = 1;
-		if (controller_data[4])
-			joystick_input_j1.members.buttons.B5 = 1;
-		if (controller_data[5])
-			joystick_input_j1.members.buttons.B6 = 1;
-		if (controller_data[6])
-			joystick_input_j1.members.buttons.B7 = 1;
-		if (controller_data[7])
-			joystick_input_j1.members.buttons.B8 = 1;
-		
-		if (controller_data[10])
-			joystick_input_j1.members.buttons.B9 = 1;
-		if (controller_data[11])
-			joystick_input_j1.members.buttons.B10 = 1;
-
-		cY = cX = 0;
-		if(controller_data[12])
-			cY -= 2;
-		if(controller_data[13])
-			cY += 2;
-		if(controller_data[14])
-			cX -= 2;
-		if(controller_data[15])
-			cX += 2;
-
-		if(cY != 0 || cX != 0)
-		{
-			if(cY < 0)
-				hat = round(((2*PI)-acos(cX/sqrt(cX*cX+cY*cY)))*(4/PI))+2;
-			else
-				hat = round(acos(cX/sqrt(cX*cX+cY*cY))*(4/PI))+2;
-
-			joystick_input_j1.members.hat_switch.hat_switch = hat%8;
-		}
-
-		XAxis =	controller_data[16] & 0x80 |
-				controller_data[17] & 0x40 |
-				controller_data[18] & 0x20 |
-				controller_data[19] & 0x10 |
-				controller_data[20] & 0x08 |
-				controller_data[21] & 0x04 |
-				controller_data[22] & 0x02 |
-				controller_data[23] & 0x01;
-		
-		YAxis = controller_data[24] & 0x80 |
-				controller_data[25] & 0x40 |
-				controller_data[26] & 0x20 |
-				controller_data[27] & 0x10 |
-				controller_data[28] & 0x08 |
-				controller_data[29] & 0x04 |
-				controller_data[30] & 0x02 |
-				controller_data[31] & 0x01;
-		
-		XNew = (int)127+(float)XAxis*1.0;
-		YNew = (int)127-(float)YAxis*1.0;
-
-		if(XNew > 255)
-			XNew = 255;
-		else if(XNew < 0)
-			XNew = 0;
-
-		if(YNew > 255)
-			YNew = 255;
-		else if(YNew < 0)
-			YNew = 0;
-
-		joystick_input_j1.members.analog_stick.X = (unsigned char)XNew;
-		joystick_input_j1.members.analog_stick.Y = (unsigned char)YNew;
-
-		//Send the packet over USB to the host.
-		lastTransmission_j1 = HIDTxPacket(HID_EP, (BYTE*)&joystick_input_j1, sizeof(joystick_input_j1));
+        // We are not configured
+        return;
     }
 
-	// Check if data was received from the host.
+    // If the last transmision is complete send the joystick status
+    if(!HIDTxHandleBusy(lastTransmission))
+    {
+        char XAxis, YAxis;
+        int XNew, YNew;
+        float cX = 0, cY = 0;
+        unsigned char hat;
+
+        //get updated data from controller
+        PollController();
+
+        //don't send anything if there was an issue getting controller data
+        if(controller_data_error[0])
+            return;
+
+        // Set the button values
+        joystickUSBBuffer.members.buttons.B1 = controller_data[0]  & 0x01;
+        joystickUSBBuffer.members.buttons.B2 = controller_data[1]  & 0x01;
+        joystickUSBBuffer.members.buttons.B3 = controller_data[2]  & 0x01;
+        joystickUSBBuffer.members.buttons.B4 = controller_data[3]  & 0x01;
+        joystickUSBBuffer.members.buttons.B5 = controller_data[4]  & 0x01;
+        joystickUSBBuffer.members.buttons.B6 = controller_data[5]  & 0x01;
+        joystickUSBBuffer.members.buttons.B7 = controller_data[6]  & 0x01;
+        joystickUSBBuffer.members.buttons.B8 = controller_data[7]  & 0x01;
+        joystickUSBBuffer.members.buttons.B9 = controller_data[10] & 0x01;
+        joystickUSBBuffer.members.buttons.B10= controller_data[11] & 0x01;
+        joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
+
+        //determine the hat position
+        if(controller_data[12])
+            cY -= 2;
+        if(controller_data[13])
+            cY += 2;
+        if(controller_data[14])
+            cX -= 2;
+        if(controller_data[15])
+            cX += 2;
+
+        if(cY != 0 || cX != 0)
+        {
+            if(cY < 0)
+                    hat = round(((2*PI)-acos(cX/sqrt(cX*cX+cY*cY)))*(4/PI))+2;
+            else
+                    hat = round(acos(cX/sqrt(cX*cX+cY*cY))*(4/PI))+2;
+
+            joystickUSBBuffer.members.hat_switch.hat_switch = hat%8;
+        }
+
+        //convert array to single byte
+        XAxis =	controller_data[16] & 0x80 |
+                controller_data[17] & 0x40 |
+                controller_data[18] & 0x20 |
+                controller_data[19] & 0x10 |
+                controller_data[20] & 0x08 |
+                controller_data[21] & 0x04 |
+                controller_data[22] & 0x02 |
+                controller_data[23] & 0x01;
+
+        YAxis = controller_data[24] & 0x80 |
+                controller_data[25] & 0x40 |
+                controller_data[26] & 0x20 |
+                controller_data[27] & 0x10 |
+                controller_data[28] & 0x08 |
+                controller_data[29] & 0x04 |
+                controller_data[30] & 0x02 |
+                controller_data[31] & 0x01;
+
+        //change from unsigned to signed
+        XNew = (int)127+(int)XAxis;
+        YNew = (int)127-(int)YAxis;
+
+        //make sure there is no overflow
+        if(XNew > 255)
+            XNew = 255;
+        else if(XNew < 0)
+            XNew = 0;
+
+        if(YNew > 255)
+            YNew = 255;
+        else if(YNew < 0)
+            YNew = 0;
+
+        joystickUSBBuffer.members.analog_stick.X = (unsigned char)XNew;
+        joystickUSBBuffer.members.analog_stick.Y = (unsigned char)YNew;
+
+        //Send the packet over USB to the host.
+        lastTransmission = HIDTxPacket(HID_EP, (BYTE*)&joystickUSBBuffer, sizeof(joystickUSBBuffer));
+    }
+
+    // Check if data was received from the host.
     if(!HIDRxHandleBusy(USBOutHandle))
     {   
-		// Command mode    
+        // Command mode
         switch(ReceivedDataBuffer[0])
-		{
+        {
             default:	// Unknown command received
-           		break;
-		}
+                break;
+        }
 		 
         // Re-arm the OUT endpoint for the next packet
         USBOutHandle = HIDRxPacket(HID_EP,(BYTE*)&ReceivedDataBuffer,32);
-  	}
+    }
 }
 
 // USB Callback handling routines -----------------------------------------------------------
