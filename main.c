@@ -215,6 +215,7 @@ void applicationInit(void)
 // Process USB commands
 void processUsbCommands(void)
 {
+    static unsigned char read_error_count = 0;
 
     // Check if we are in the configured state; otherwise just return
     if((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1))
@@ -235,8 +236,14 @@ void processUsbCommands(void)
         PollController();
 
         //don't send anything if there was an issue getting controller data
-        if(controller_data_error[0])
-            return;
+        if(controller_data_error[0]) {
+            read_error_count++;
+            if(read_error_count > 10)
+                memset((char*)controller_data,0,32);
+            else
+                return;
+        }
+        read_error_count = 0;
 
         // Set the button values
         joystickUSBBuffer.members.buttons.B1 = controller_data[0]  & 0x01;
