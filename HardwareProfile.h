@@ -94,20 +94,4 @@
 // remove any references to <strings.h> and sprintf().
 //#define DEBUGON
 
-// PIC to hardware pin mapping and control macros
-
-// Led control macros
-#define mInitStatusLeds()		LATC &= 0b00000000; TRISC &= 0b11111110;
-#define mStatusLED0				LATCbits.LATC0
-#define mStatusLED0_on()		mStatusLED0 = 1;
-#define mStatusLED0_off()		mStatusLED0 = 0;
-#define mStatusLED0_Toggle()	mStatusLED0 = !mStatusLED0;
-#define mStatusLED0_Get()       mStatusLED0
-
-// Switch macros
-#define mInitAllSwitches()  TRISCbits.TRISC1=1;
-#define mInitSwitch0()      TRISCbits.TRISC1=1;
-#define sw0                 PORTCbits.RA1
-
-
 #endif

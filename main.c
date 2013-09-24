@@ -29,7 +29,7 @@
 
 // Ensure we have the correct target PIC device family
 #if !defined(__18F14K50)
-	#error "This firmware only supports the PIC18F14K50 microcontroller."
+    #error "This firmware only supports the PIC18F14K50 microcontroller."
 #endif
 
 // PIC18F14K50 Hardware Configuration
@@ -78,8 +78,6 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
     } members;
 } INPUT_CONTROLS;
 
-USB_HANDLE lastTransmission;
-
 #define HAT_SWITCH_NORTH            0x0
 #define HAT_SWITCH_NORTH_EAST       0x1
 #define HAT_SWITCH_EAST             0x2
@@ -91,23 +89,7 @@ USB_HANDLE lastTransmission;
 #define HAT_SWITCH_NULL             0x8
 
 #define PI (float)3.14159
-
-// Define the globals for the USB data in the USB RAM of the PIC18F*550
-#pragma udata
-#if defined(__18F14K50) || defined(__18F13K50) || defined(__18LF14K50) || defined(__18LF13K50) 
-#pragma udata usbram2 
-#endif
-
-unsigned char ReceivedDataBuffer[16];
-INPUT_CONTROLS joystickUSBBuffer; // 32 bytes
-#pragma udata
-
-USB_HANDLE USBOutHandle = 0;
-//USB_HANDLE USBInHandle = 0;
-BOOL blinkStatusValid = FLAG_TRUE;
-
-volatile unsigned char controller_data[32] = {0};
-volatile unsigned char controller_data_error[1];
+#define round(X) (int)(X+0.5)
 
 extern void PollController(void);
 
@@ -119,28 +101,40 @@ void USBCBSendResume(void);
 void highPriorityISRCode();
 void lowPriorityISRCode();
 
-// String for creating debug messages
-char debugString[64];
+// Define the globals for the USB data in the USB RAM of the PIC18F*550
+#pragma udata
+USB_HANDLE lastTransmission = 0;
 
-#define round(X) (int)(X+0.5)
+char buffer[64]; //not sure why it doesn't work without this...
 
+volatile unsigned char controller_data[32] = {0};
+volatile unsigned char controller_data_error[1];
+
+#if defined(__18F14K50) || defined(__18F13K50) || defined(__18LF14K50) || defined(__18LF13K50) 
+#pragma udata usbram2 
+#endif
+INPUT_CONTROLS joystickUSBBuffer; // 32 bytes
+BYTE hid_report[8];
+#pragma udata
+
+#pragma code
 // High-priority ISR handling function
 #pragma interrupt highPriorityISRCode
 void highPriorityISRCode()
 {
-	// Application specific high-priority ISR code goes here
+    // Application specific high-priority ISR code goes here
 
-	#if defined(USB_INTERRUPT)
-		// Perform USB device tasks
-		USBDeviceTasks();
-	#endif
+    #if defined(USB_INTERRUPT)
+        // Perform USB device tasks
+        USBDeviceTasks();
+    #endif
 }
 
 // Low-priority ISR handling function
 #pragma interruptlow lowPriorityISRCode
 void lowPriorityISRCode()
 {
-	// Application specific low-priority ISR code goes here
+    // Application specific low-priority ISR code goes here
 }
 
 // Main program entry point
@@ -175,14 +169,14 @@ void initialisePic(void)
     // Default all pins to digital
     ANSEL = 0x00;
 
-    //Initialize ports and default to input
+    //Initialize ports and set unused pins to GND
     LATC = 0x00;
     PORTC = 0x00;
-    TRISC = 0xFF;
+    TRISC = 0x04;
 
     LATB = 0x00;
     PORTB = 0x00;
-    TRISB = 0xFF;
+    TRISB = 0x00;
 
     //disable watchdog
     WDTCON = 0;
@@ -215,13 +209,13 @@ void initialisePic(void)
 void applicationInit(void)
 {
     // Initialize the variable holding the USB handle for the last transmission
-    USBOutHandle = 0;
-	lastTransmission = 0;
+    lastTransmission = 0;
 }
 
 // Process USB commands
 void processUsbCommands(void)
-{   
+{
+
     // Check if we are in the configured state; otherwise just return
     if((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1))
     {
@@ -270,9 +264,9 @@ void processUsbCommands(void)
         if(cY != 0 || cX != 0)
         {
             if(cY < 0)
-                    hat = round(((2*PI)-acos(cX/sqrt(cX*cX+cY*cY)))*(4/PI))+2;
+                hat = round(((2*PI)-acos(cX/sqrt(cX*cX+cY*cY)))*(4/PI))+2;
             else
-                    hat = round(acos(cX/sqrt(cX*cX+cY*cY))*(4/PI))+2;
+                hat = round(acos(cX/sqrt(cX*cX+cY*cY))*(4/PI))+2;
 
             joystickUSBBuffer.members.hat_switch.hat_switch = hat%8;
         }
@@ -316,20 +310,6 @@ void processUsbCommands(void)
 
         //Send the packet over USB to the host.
         lastTransmission = HIDTxPacket(HID_EP, (BYTE*)&joystickUSBBuffer, sizeof(joystickUSBBuffer));
-    }
-
-    // Check if data was received from the host.
-    if(!HIDRxHandleBusy(USBOutHandle))
-    {   
-        // Command mode
-        switch(ReceivedDataBuffer[0])
-        {
-            default:	// Unknown command received
-                break;
-        }
-		 
-        // Re-arm the OUT endpoint for the next packet
-        USBOutHandle = HIDRxPacket(HID_EP,(BYTE*)&ReceivedDataBuffer,32);
     }
 }
 
@@ -376,9 +356,6 @@ void USBCBInitEP(void)
 {
     // Enable the HID endpoint
     USBEnableEndpoint(HID_EP,USB_IN_ENABLED|USB_OUT_ENABLED|USB_HANDSHAKE_ENABLED|USB_DISALLOW_SETUP);
-    
-    // Re-arm the OUT endpoint for the next packet
-    USBOutHandle = HIDRxPacket(HID_EP,(BYTE*)&ReceivedDataBuffer,64);
 }
 
 // Send resume call-back
@@ -459,5 +436,6 @@ BOOL USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, WORD size)
     }      
     return FLAG_TRUE; 
 }
+#pragma code
 
 #endif
