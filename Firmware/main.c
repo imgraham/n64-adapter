@@ -52,17 +52,17 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
     {
         struct
         {
-            BYTE B1:1;
-            BYTE B2:1;
-            BYTE B3:1;
-            BYTE B4:1;
-            BYTE B5:1;
-            BYTE B6:1;
-            BYTE B7:1;
-            BYTE B8:1;
-            BYTE B9:1;
-            BYTE B10:1;
-            BYTE :6;    //filler to byte-align TODO: this shouldn't be needed
+            BYTE A:1;
+            BYTE B:1;
+            BYTE Z:1;
+            BYTE Start:1;
+            BYTE Up:1;
+            BYTE Down:1;
+            BYTE Left:1;
+            BYTE Right:1;
+            BYTE L:1;
+            BYTE R:1;
+            BYTE :6;    //filler to byte-align
         } buttons;
         struct
         {
@@ -111,7 +111,30 @@ USB_HANDLE lastTransmission = 0;
 
 char buffer[64]; //not sure why it doesn't work without this...
 
-volatile unsigned char controller_data[32] = {0};
+typedef struct N64ControllerBitstream {
+    BYTE A;
+    BYTE B;
+    BYTE Z;
+    BYTE Start;
+    BYTE Up;
+    BYTE Down;
+    BYTE Left;
+    BYTE Right;
+
+    BYTE Reserved[2];
+    BYTE L;
+    BYTE R;
+    BYTE C_Up;
+    BYTE C_Down;
+    BYTE C_Left;
+    BYTE C_Right;
+
+    BYTE X_Axis[8];
+    BYTE Y_Axis[8];
+
+    BYTE Stop_Bit;
+} N64ControllerBitstream;
+volatile N64ControllerBitstream controller_data = {0};
 volatile unsigned char controller_data_error[1];
 
 #if defined(__18F14K50) || defined(__18F13K50) || defined(__18LF14K50) || defined(__18LF13K50) 
@@ -268,13 +291,13 @@ void lowPriorityISRCode()
     // Application specific low-priority ISR code goes here
 }
 
-void convertControllerData (unsigned char num_bytes, void* ret)
-{
-    for(; num_bytes > 0; num_bytes--)
-    {
-        *(unsigned long*)ret |= (unsigned long)(controller_data[num_bytes-1] & 0x01) << 24-num_bytes;
-    }
-}
+//void convertControllerData (unsigned char num_bytes, void* ret)
+//{
+//    for(; num_bytes > 0; num_bytes--)
+//    {
+//        *(unsigned long*)ret |= (unsigned long)(controller_data[num_bytes-1] & 0x01) << 24-num_bytes;
+//    }
+//}
 
 // Main program entry point
 void main(void)
@@ -384,7 +407,6 @@ void processUsbCommands(void)
         char XAxis, YAxis;
         int XNew, YNew;
         int cY = 0;
-        unsigned char hat;
 
         //get updated data from controller
         PollController();
@@ -393,7 +415,7 @@ void processUsbCommands(void)
         if(controller_data_error[0]) {
             read_error_count++;
             if(read_error_count > 5) {
-                memset((char*)controller_data,0,32);
+                memset((char*)&controller_data, 0, sizeof(controller_data));
             } else {
                 return;
             }
@@ -402,60 +424,53 @@ void processUsbCommands(void)
 
         //convert controller array to USB joystick data
         // Set the button values
-        joystickUSBBuffer.members.buttons.B1 = controller_data[0]  & 0x01;
-        joystickUSBBuffer.members.buttons.B2 = controller_data[1]  & 0x01;
-        joystickUSBBuffer.members.buttons.B3 = controller_data[2]  & 0x01;
-        joystickUSBBuffer.members.buttons.B4 = controller_data[3]  & 0x01;
-        joystickUSBBuffer.members.buttons.B5 = controller_data[4]  & 0x01;
-        joystickUSBBuffer.members.buttons.B6 = controller_data[5]  & 0x01;
-        joystickUSBBuffer.members.buttons.B7 = controller_data[6]  & 0x01;
-        joystickUSBBuffer.members.buttons.B8 = controller_data[7]  & 0x01;
-        joystickUSBBuffer.members.buttons.B9 = controller_data[10] & 0x01;
-        joystickUSBBuffer.members.buttons.B10= controller_data[11] & 0x01;
+        joystickUSBBuffer.members.buttons.A = controller_data.A          & 0x01;
+        joystickUSBBuffer.members.buttons.B = controller_data.B          & 0x01;
+        joystickUSBBuffer.members.buttons.Z = controller_data.Z          & 0x01;
+        joystickUSBBuffer.members.buttons.Start = controller_data.Start  & 0x01;
+        joystickUSBBuffer.members.buttons.Up = controller_data.Up        & 0x01;
+        joystickUSBBuffer.members.buttons.Down = controller_data.Down    & 0x01;
+        joystickUSBBuffer.members.buttons.Left = controller_data.Left    & 0x01;
+        joystickUSBBuffer.members.buttons.Right = controller_data.Right  & 0x01;
+        joystickUSBBuffer.members.buttons.L = controller_data.L          & 0x01;
+        joystickUSBBuffer.members.buttons.R= controller_data.R           & 0x01;
         joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
 
         //determine the hat position
         // Note: North is less than south in the hat mapping
-        if(controller_data[12])
+        if(controller_data.C_Up)
             cY += 1;
-        if(controller_data[13])
+        if(controller_data.C_Down)
             cY -= 1;
 
-        hat = controller_data[12] & 0x01 |
-              controller_data[13] & 0x02 |
-              controller_data[14] & 0x04 |
-              controller_data[15] & 0x08;
-
-        if (hat & C_RIGHT) {
+        if (controller_data.C_Right) {
             joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_EAST - cY;
-        } else if (hat & C_LEFT) {
+        } else if (controller_data.C_Left) {
             joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_WEST + cY;
-        } else if (hat & C_UP) {
+        } else if (controller_data.C_Up) {
             joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NORTH;
-        } else if (hat & C_DOWN) {
+        } else if (controller_data.C_Down) {
             joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_SOUTH;
-        } else {
-            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
         }
 
         //convert array to single byte
-        XAxis =	controller_data[16] & 0x80 |
-                controller_data[17] & 0x40 |
-                controller_data[18] & 0x20 |
-                controller_data[19] & 0x10 |
-                controller_data[20] & 0x08 |
-                controller_data[21] & 0x04 |
-                controller_data[22] & 0x02 |
-                controller_data[23] & 0x01;
+        XAxis = controller_data.X_Axis[0] & 0x80 |
+                controller_data.X_Axis[1] & 0x40 |
+                controller_data.X_Axis[2] & 0x20 |
+                controller_data.X_Axis[3] & 0x10 |
+                controller_data.X_Axis[4] & 0x08 |
+                controller_data.X_Axis[5] & 0x04 |
+                controller_data.X_Axis[6] & 0x02 |
+                controller_data.X_Axis[7] & 0x01;
 
-        YAxis = controller_data[24] & 0x80 |
-                controller_data[25] & 0x40 |
-                controller_data[26] & 0x20 |
-                controller_data[27] & 0x10 |
-                controller_data[28] & 0x08 |
-                controller_data[29] & 0x04 |
-                controller_data[30] & 0x02 |
-                controller_data[31] & 0x01;
+        YAxis = controller_data.Y_Axis[0] & 0x80 |
+                controller_data.Y_Axis[1] & 0x40 |
+                controller_data.Y_Axis[2] & 0x20 |
+                controller_data.Y_Axis[3] & 0x10 |
+                controller_data.Y_Axis[4] & 0x08 |
+                controller_data.Y_Axis[5] & 0x04 |
+                controller_data.Y_Axis[6] & 0x02 |
+                controller_data.Y_Axis[7] & 0x01;
 
         //change from unsigned to signed
         XNew = (int)127+(int)XAxis;

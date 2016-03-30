@@ -5,6 +5,7 @@
 
 ; TODO: format this properly - directives shouldn't be in colummn 1, 
 ; just labels and comments
+; TODO: pass these in via the stack instead of globals
 EXTERN controller_data
 EXTERN controller_data_error
 
