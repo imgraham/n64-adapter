@@ -2,7 +2,7 @@
  *      main.c
  *
  *      N64 Adapter main. This file handles the USB communication and
- *      retreiving data from the controller
+ *      retrieving data from the controller
  *
  *      ian.grhm@gmail.com
  *      2013
@@ -16,7 +16,6 @@
 
 // Local includes
 #include "HardwareProfile.h"
-#include <Math.h>
 
 // Microchip Application Library includes
 // (expects V2.9a of the USB library from "Microchip Solutions v2011-07-14")
@@ -63,7 +62,7 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
             BYTE B8:1;
             BYTE B9:1;
             BYTE B10:1;
-            BYTE :6;    //filler to byte-align
+            BYTE :6;    //filler to byte-align TODO: this shouldn't be needed
         } buttons;
         struct
         {
@@ -89,8 +88,11 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
 #define HAT_SWITCH_NORTH_WEST       0x7
 #define HAT_SWITCH_NULL             0x8
 
-#define PI (float)3.14159
-#define round(X) (int)(X+0.5)
+// C button mappings
+#define C_UP 0x01
+#define C_DOWN 0x02
+#define C_LEFT 0x04
+#define C_RIGHT 0x08
 
 extern void PollController(void);
 extern void IdentifyController(void);
@@ -381,7 +383,7 @@ void processUsbCommands(void)
     {
         char XAxis, YAxis;
         int XNew, YNew;
-        float cX = 0, cY = 0;
+        int cY = 0;
         unsigned char hat;
 
         //get updated data from controller
@@ -413,23 +415,27 @@ void processUsbCommands(void)
         joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
 
         //determine the hat position
+        // Note: North is less than south in the hat mapping
         if(controller_data[12])
-            cY -= 2;
+            cY += 1;
         if(controller_data[13])
-            cY += 2;
-        if(controller_data[14])
-            cX -= 2;
-        if(controller_data[15])
-            cX += 2;
+            cY -= 1;
 
-        if(cY != 0 || cX != 0)
-        {
-            if(cY < 0)
-                hat = round(((2*PI)-acos(cX/sqrt(cX*cX+cY*cY)))*(4/PI))+2;
-            else
-                hat = round(acos(cX/sqrt(cX*cX+cY*cY))*(4/PI))+2;
+        hat = controller_data[12] & 0x01 |
+              controller_data[13] & 0x02 |
+              controller_data[14] & 0x04 |
+              controller_data[15] & 0x08;
 
-            joystickUSBBuffer.members.hat_switch.hat_switch = hat%8;
+        if (hat & C_RIGHT) {
+            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_EAST - cY;
+        } else if (hat & C_LEFT) {
+            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_WEST + cY;
+        } else if (hat & C_UP) {
+            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NORTH;
+        } else if (hat & C_DOWN) {
+            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_SOUTH;
+        } else {
+            joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
         }
 
         //convert array to single byte
