@@ -91,7 +91,7 @@ sendCmd
     	bcf TRISC, 2
 
 	btfss STATUS, Z
-	goto stopBit ; done sending ones
+	    goto stopBit ; done sending ones
 
         ; high delay (1 us)
         nop
@@ -114,9 +114,9 @@ sendCmd
             decfsz d1
 		goto oneloop
 	    decf d3
-		goto one
+	    goto one
 
-	stopBit
+    stopBit
         nop
         nop
         nop
@@ -147,19 +147,21 @@ sendCmd
 		goto waitLowLoop
 
 	movlw 0x7D	;don't set right at 7F since this takes a few cycles
-	movwf countLow
 
     readLoop            ; read all 33 bits and store them on locations 0x20 etc.
         ; count amount of time line is high
 	waitHigh
-	    dcfsnz countLow
+	    dcfsnz WREG
 		goto discardData
 	    btfss PORTC, 2      ; continue if low
 		goto waitHigh
 
-        ; count amount of time line is low
+	movwf countLow ; Copy the low count out for later comparison
+	movlw 0x7F
+
+	; count amount of time line is low
 	waitLow
-	    dcfsnz countHigh
+	    dcfsnz WREG
 		goto discardData
 	    btfsc PORTC, 2      ; continue if low
 		goto waitLow
@@ -167,18 +169,15 @@ sendCmd
 	nextBit
 	    ; determine which part was longer (high vs low)
 	    ; store FF or 00 to represent 1 or 0
-	    movf countLow, W	; TODO: Why not just use w reg for some of the operations rather than copy this in here...would probably save a bunch of space
-	    subwf countHigh, W ; TODO: idea - just increment the register at the start, then decrement it for the "waitLow" - if it's 0 at this point, the second half was longer...saves instructions
-	    movlw 0xFF
+	    subwf countLow, W ; TODO: idea - just increment the register at the start, then decrement it for the "waitLow" - if it's 0 at this point, the second half was longer...saves instructions
+	    movlw 0x00
 	    btfsc STATUS, C
-		movlw 0x00
+		movlw 0xFF
 	    movwf INDF0         ; Wait & store the value of the bit in the array
 	    incf FSR0L          ; Go to next adress in the array
 
 	    ; reset count variables for next loop
-	    movlw 0x7F	; TODO: this should be lower than what countHigh defaults to in order to account for the extra cycles here
-	    movwf countLow
-	    movwf countHigh ; TODO: move this line up so it doesn't take up precious cycles down here
+	    movlw 0x7D ; not the full 0x7F because we ate a few cycles into the next bit
 
 	    decfsz d4           ; end loop if all 33 bits are read
 		goto readLoop
