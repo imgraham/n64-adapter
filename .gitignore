@@ -5,3 +5,7 @@
 *.map
 *.cof
 N64Adapter.X/nbproject/Makefile-genesis.properties
+
+# Eagle PCB backup files
+*.b#*
+*.s#*
