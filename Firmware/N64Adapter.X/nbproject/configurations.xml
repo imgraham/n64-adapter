@@ -5,32 +5,32 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="Common" displayName="Common" projectFiles="true">
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/Compiler.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/GenericTypeDefs.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/Compiler.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/GenericTypeDefs.h</itemPath>
       </logicalFolder>
       <logicalFolder name="USB Stack" displayName="USB Stack" projectFiles="true">
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb_ch9.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb_common.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb_device.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb_hal.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB/usb_hal_pic18.h</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/USB/usb_device_local.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb_ch9.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb_common.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb_device.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb_hal.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include/USB/usb_hal_pic18.h</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/USB/usb_device_local.h</itemPath>
       </logicalFolder>
       <itemPath>../HardwareProfile.h</itemPath>
       <itemPath>../usb_config.h</itemPath>
-      <itemPath>../debug.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
+      <itemPath>../rm18f14k50.lkr</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="USB Stack" displayName="USB Stack" projectFiles="true">
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/USB/usb_device.c</itemPath>
-        <itemPath>../../../../../../Microchip Solutions v2011-12-05/Microchip/USB/HID Device Driver/usb_function_hid.c</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/USB/usb_device.c</itemPath>
+        <itemPath>../../../../../../../microchip_solutions_v2013-06-15/Microchip/USB/HID Device Driver/usb_function_hid.c</itemPath>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../usb_descriptors.c</itemPath>
@@ -44,12 +44,14 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../</Elem>
-    <Elem>../../../../../../Microchip Solutions v2011-12-05/Microchip/USB</Elem>
-    <Elem>../../../../../../Microchip Solutions v2011-12-05/Microchip/Include</Elem>
+    <Elem>../../../../../../../Microchip Solutions v2011-12-05/Microchip/USB</Elem>
+    <Elem>../../../../../../../Microchip Solutions v2011-12-05/Microchip/Include</Elem>
+    <Elem>../../../../../../../microchip_solutions_v2013-06-15/Microchip/USB</Elem>
+    <Elem>../../../../../../../microchip_solutions_v2013-06-15/Microchip/Include</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="default" type="2">
+    <conf name="PIC18F14K50" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC18F14K50</targetDevice>
@@ -98,8 +100,8 @@
         <property key="enable-ou" value="false"/>
         <property key="enable-ow" value="true"/>
         <property key="extra-include-directories"
-                  value="../../../../../../Microchip Solutions v2011-12-05/Microchip/Include;..;../../../../../../Microchip Solutions v2011-12-05/Microchip/Include/USB;../../../../../../Microchip Solutions v2011-12-05/Microchip/USB"/>
-        <property key="optimization-master" value="Custom"/>
+                  value="..;C:/microchip_solutions_v2013-06-15/Microchip/Include;C:/microchip_solutions_v2013-06-15/Microchip/Include/USB;C:/microchip_solutions_v2013-06-15/Microchip/USB"/>
+        <property key="optimization-master" value="Enable all"/>
         <property key="preprocessor-macros" value=""/>
         <property key="procedural-abstraction-passes" value="0"/>
         <property key="storage-class" value="sca"/>
@@ -137,6 +139,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
