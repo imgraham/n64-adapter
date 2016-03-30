@@ -46,7 +46,7 @@
 
 #pragma config WDTEN 	= OFF
 
-// 32 bytes
+// 32 bytes - joystick layout (USB driver)
 typedef union _INTPUT_CONTROLS_TYPEDEF
 {
     struct
@@ -78,6 +78,7 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
     } members;
 } INPUT_CONTROLS;
 
+//hat positions
 #define HAT_SWITCH_NORTH            0x0
 #define HAT_SWITCH_NORTH_EAST       0x1
 #define HAT_SWITCH_EAST             0x2
@@ -276,8 +277,9 @@ void convertControllerData (unsigned char num_bytes, void* ret)
 // Main program entry point
 void main(void)
 {
-    unsigned long id = 0;
-    unsigned int i;
+    // Commented out because I guess this didn't work
+    //unsigned long id = 0;
+    //unsigned int i;
 
     // Initialise and configure the PIC ready to go
     initialisePic();
@@ -396,6 +398,7 @@ void processUsbCommands(void)
         }
         read_error_count = 0;
 
+        //convert controller array to USB joystick data
         // Set the button values
         joystickUSBBuffer.members.buttons.B1 = controller_data[0]  & 0x01;
         joystickUSBBuffer.members.buttons.B2 = controller_data[1]  & 0x01;

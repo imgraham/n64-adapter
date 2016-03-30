@@ -1,21 +1,23 @@
 ; This file handles all communication with the N64 Controller
 ; It is written to make optimal use of CPU cycles in order to capture all data
+; timing based on 48MHz clock, nop's used to delay
 #include <P18F14K50.INC>
 
 EXTERN controller_data
 EXTERN controller_data_error
 
 cblock
-    d1
-    d2
-    d3
-    d4
-	countLow
-	countHigh
+    d1  ; generic counter for delay loops
+    d2  ; zero count
+    d3  ; one count
+    d4  ; bit bount
+	countLow    ; signal pulse low count
+	countHigh   ; signal pulse high count
 endc
 
 CODE
 
+; set up bits to send for controller ID request
 IdentifyController			; Send the controller ID signal (0b00000000)
 	; Part 1 - Set up the number of bits to be sent and read
     movlw 0x18              ; 0x18 = 24 bits
@@ -28,6 +30,7 @@ IdentifyController			; Send the controller ID signal (0b00000000)
     movwf d3
 	goto sendCmd
 
+; set up bits to send for controller poll request
 PollController              ; Send the polling signal (0b00000001)
 
 	; Part 1 - Read the N64 controller and store the status values
@@ -39,20 +42,25 @@ PollController              ; Send the polling signal (0b00000001)
 
     movlw 0x01              ; number of ones that need to be sent
     movwf d3
+    goto sendCmd
 
+; sends the desired command to the controller
 sendCmd
 	bsf TRISC, 2
 
-	LFSR 0,controller_data	; set up the array address
+	LFSR 0,controller_data	; set up the array address for storing response
 
 	movlw 0x7F
 	movwf countLow
 	movwf countHigh
 
+    ; line is toggled on/off by manipulating tristate (pull up facilitates this)
+    ; send zeros to controller
     zero
 		bcf LATC, 2
     	bcf TRISC, 2
 
+        ; high delay (3 us)
         movlw 0x0B
         movwf d1
         zeroloop            ; 9 instruction cycles
@@ -60,6 +68,8 @@ sendCmd
             goto zeroloop
 
     	bsf TRISC, 2
+
+        ; low delay (1 us)
 		nop
 		nop
 		nop
@@ -73,17 +83,16 @@ sendCmd
 		;skip of no 1's to send
 		movf	d3
 
+    ; send ones to controller
     one
 		bcf LATC, 2
     	bcf TRISC, 2
 
 		btfss   STATUS, Z
-			goto stopBit
+			goto stopBit ; done sending ones
 
-        ;nop
-        ;nop
+        ; high delay (1 us)
         nop
-
         nop
         nop
         nop
@@ -93,6 +102,7 @@ sendCmd
         nop
         nop		
 
+        ; low delay (3 us)
     	bsf TRISC, 2
 		nop
         movlw 0x07
@@ -105,13 +115,9 @@ sendCmd
 		goto one
 
 	stopBit
-		;bcf LATC, 2
-    	;bcf TRISC, 2
-
         nop
         nop
         nop
-
         nop
         nop
         nop
@@ -121,22 +127,14 @@ sendCmd
         nop
         nop		
 
-		;this isn't the full high time since we want to start waiting for the controller response (there is no difference between reading and outputting 1)
+		; this isn't the full high time since we want to start waiting for the controller response
+        ; (there is no difference between reading and outputting 1)
     	bsf TRISC, 2
 		nop
 		nop
 		nop
-        ;movlw 0x01
-       ; movwf d1
-        ;sbloop             ; 8 instruction cycles
-        ;    nop
-        ;    decfsz d1
-        ;    goto sbloop
 
 	;read the response
-    ;bsf TRISC, 2            ; RB7 as input  (is also last instruction of poll)
-
-	;;;;;
 	;countLow and countHigh set before polling starts
 
 	;wait for line to go low
@@ -151,12 +149,14 @@ sendCmd
 
     readLoop                ; read all 33 bits and store them on locations 0x20 etc.
 
+        ; count amount of time line is high
 		waitHigh
 			dcfsnz countLow
 				goto discardData
 			btfss PORTC, 2      ; continue if low
 			goto waitHigh
 
+        ; count amount of time line is low
 		waitLow
 			dcfsnz countHigh
 				goto discardData
