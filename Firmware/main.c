@@ -77,6 +77,30 @@ typedef union _INTPUT_CONTROLS_TYPEDEF
     } members;
 } INPUT_CONTROLS;
 
+typedef struct N64ControllerBitstream {
+    BYTE A;
+    BYTE B;
+    BYTE Z;
+    BYTE Start;
+    BYTE Up;
+    BYTE Down;
+    BYTE Left;
+    BYTE Right;
+
+    BYTE Reserved[2];
+    BYTE L;
+    BYTE R;
+    BYTE C_Up;
+    BYTE C_Down;
+    BYTE C_Left;
+    BYTE C_Right;
+
+    BYTE X_Axis[8];
+    BYTE Y_Axis[8];
+
+    BYTE Stop_Bit;
+} N64ControllerBitstream;
+
 //hat positions
 #define HAT_SWITCH_NORTH            0x0
 #define HAT_SWITCH_NORTH_EAST       0x1
@@ -105,44 +129,19 @@ void USBCBSendResume(void);
 void highPriorityISRCode();
 void lowPriorityISRCode();
 
-// Define the globals for the USB data in the USB RAM of the PIC18F*550
-#pragma udata
-USB_HANDLE lastTransmission = 0;
-
-char buffer[64]; //not sure why it doesn't work without this...
-
-typedef struct N64ControllerBitstream {
-    BYTE A;
-    BYTE B;
-    BYTE Z;
-    BYTE Start;
-    BYTE Up;
-    BYTE Down;
-    BYTE Left;
-    BYTE Right;
-
-    BYTE Reserved[2];
-    BYTE L;
-    BYTE R;
-    BYTE C_Up;
-    BYTE C_Down;
-    BYTE C_Left;
-    BYTE C_Right;
-
-    BYTE X_Axis[8];
-    BYTE Y_Axis[8];
-
-    BYTE Stop_Bit;
-} N64ControllerBitstream;
-volatile N64ControllerBitstream controller_data = {0};
-volatile unsigned char controller_data_error[1];
-
-#if defined(__18F14K50) || defined(__18F13K50) || defined(__18LF14K50) || defined(__18LF13K50) 
-#pragma udata usbram2 
+// Define the globals for the USB data in the USB RAM
+#if defined(__18F14K50) || defined(__18F13K50) || defined(__18LF14K50) || defined(__18LF13K50)
+#pragma udata usbram2
 #endif
+USB_HANDLE lastTransmission = 0;
 INPUT_CONTROLS joystickUSBBuffer; // 32 bytes
 BYTE hid_report[8];
+
 #pragma udata
+//char buffer[64]; //not sure why it doesn't work without this...
+
+volatile N64ControllerBitstream controller_data = {0};
+volatile BYTE controller_data_error;
 
 /** VECTOR REMAPPING ***********************************************/
 #if defined(__18CXX)
@@ -317,7 +316,7 @@ void main(void)
     /*while(id&0xFFFFF8 != 0x050000) {
         IdentifyController();
         id = 0;
-        if(!controller_data_error[0]) {
+        if(!controller_data_error) {
             convertControllerData(24, &id);
         }
 
@@ -412,7 +411,7 @@ void processUsbCommands(void)
         PollController();
 
         //don't send anything if there was an issue getting controller data
-        if(controller_data_error[0]) {
+        if(controller_data_error) {
             read_error_count++;
             if(read_error_count > 5) {
                 memset((char*)&controller_data, 0, sizeof(controller_data));

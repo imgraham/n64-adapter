@@ -51,8 +51,8 @@ PollController              ; Send the polling signal (0b00000001)
 sendCmd
     bsf TRISC, 2
 
-    LFSR 0,controller_data	; set up the array address for storing response
-
+    LFSR 0, controller_data	; set up the array address for storing response
+    
     movlw 0x7F
     movwf countLow
     movwf countHigh
@@ -72,7 +72,7 @@ sendCmd
 
     	bsf TRISC, 2
 
-        ; low delay (1 us)
+    ; low delay (1 us)
 	nop
 	nop
 	nop
@@ -173,7 +173,7 @@ sendCmd
 	    subwf countLow, W ; TODO: idea - just increment the register at the start, then decrement it for the "waitLow" - if it's 0 at this point, the second half was longer...saves instructions
 	    movlw 0x00
 	    btfsc STATUS, C
-		movlw 0xFF
+            movlw 0xFF
 	    movwf INDF0         ; Wait & store the value of the bit in the array
 	    incf FSR0L          ; Go to next adress in the array
 
@@ -184,16 +184,14 @@ sendCmd
 		goto readLoop
 
     ;indicate no data error
-    LFSR 0,controller_data_error
     movlw 0x00
-    movwf INDF0         ; Wait & store the value of the bit in the array
+    movwf controller_data_error
 
 return
 
 discardData
-    LFSR 0,controller_data_error
     movlw 0xFF
-    movwf INDF0         ; Wait & store the value of the bit in the array
+    movwf controller_data_error  ; Indicate there was an error
 return
 
 ; export functions to C
