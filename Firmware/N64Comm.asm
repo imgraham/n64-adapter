@@ -7,7 +7,6 @@
 ; just labels and comments
 ; TODO: pass these in via the stack instead of globals
 EXTERN controller_data
-EXTERN controller_data_error
 
 cblock
     d1  ; generic counter for delay loops
@@ -31,7 +30,7 @@ IdentifyController			; Send the controller ID signal (0b00000000)
 
     movlw 0x00              ; number of ones that need to be sent
     movwf d3
-    goto sendCmd
+    bra sendCmd
 
 ; set up bits to send for controller poll request
 PollController              ; Send the polling signal (0b00000001)
@@ -45,7 +44,7 @@ PollController              ; Send the polling signal (0b00000001)
 
     movlw 0x01              ; number of ones that need to be sent
     movwf d3
-    goto sendCmd
+    bra sendCmd
 
 ; sends the desired command to the controller
 sendCmd
@@ -68,7 +67,7 @@ sendCmd
         movwf d1
         zeroloop            ; 9 instruction cycles
             decfsz d1
-            goto zeroloop
+            bra zeroloop
 
     	bsf TRISC, 2
 
@@ -81,7 +80,7 @@ sendCmd
 	nop
 	nop
 	decfsz d2
-	goto zero
+        bra zero
 
 	;skip of no 1's to send
 	movf	d3
@@ -92,7 +91,7 @@ sendCmd
     	bcf TRISC, 2
 
 	btfss STATUS, Z
-	    goto stopBit ; done sending ones
+	    bra stopBit ; done sending ones
 
         ; high delay (1 us)
         nop
@@ -113,9 +112,9 @@ sendCmd
         oneloop             ; 8 instruction cycles
             nop
             decfsz d1
-		goto oneloop
+		bra oneloop
 	    decf d3
-	    goto one
+	    bra one
 
     stopBit
         nop
@@ -143,9 +142,9 @@ sendCmd
 	;wait for line to go low
 	waitLowLoop
 	    dcfsnz countLow
-		goto discardData
+            bra discardData
 	    btfsc PORTC, 2      ; continue if low
-		goto waitLowLoop
+            bra waitLowLoop
 
 	movlw 0x7D	;don't set right at 7F since this takes a few cycles
 
@@ -153,9 +152,9 @@ sendCmd
         ; count amount of time line is high
 	waitHigh
 	    dcfsnz WREG
-		goto discardData
+            bra discardData
 	    btfss PORTC, 2      ; continue if low
-		goto waitHigh
+            bra waitHigh
 
 	movwf countLow ; Copy the low count out for later comparison
 	movlw 0x7F
@@ -163,9 +162,9 @@ sendCmd
 	; count amount of time line is low
 	waitLow
 	    dcfsnz WREG
-		goto discardData
+            bra discardData
 	    btfsc PORTC, 2      ; continue if low
-		goto waitLow
+            bra waitLow
 
 	nextBit
 	    ; determine which part was longer (high vs low)
@@ -179,18 +178,18 @@ sendCmd
 	    ; reset count variables for next loop
 	    movlw 0x7E ; not the full 0x7F because we ate a few cycles into the next bit
 
-	    decfsz d4           ; end loop if all 33 bits are read
-		goto readLoop
+        ; TODO: (been a while) but it looks like this ignores the stop bit - should look into this and make proper note of it
+	    decfsz d4           ; end loop if all 32 bits are read
+            bra readLoop
 
-    ;indicate no data error
+    ;indicate no data error (return 0)
     movlw 0x00
-    movwf controller_data_error
-
+    MOVWF PRODL
 return
 
 discardData
-    movlw 0xFF
-    movwf controller_data_error  ; Indicate there was an error
+    movlw 0x01
+    MOVWF PRODL  ; Indicate there was an error (error code 1)
 return
 
 ; export functions to C

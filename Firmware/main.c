@@ -97,8 +97,6 @@ typedef struct N64ControllerBitstream {
 
     BYTE X_Axis[8];
     BYTE Y_Axis[8];
-
-    BYTE Stop_Bit;
 } N64ControllerBitstream;
 
 //hat positions
@@ -118,8 +116,8 @@ typedef struct N64ControllerBitstream {
 #define C_LEFT 0x04
 #define C_RIGHT 0x08
 
-extern void PollController(void);
-extern void IdentifyController(void);
+extern BYTE PollController(void);
+extern BYTE IdentifyController(void);
 
 // Private function prototypes
 void initialisePic(void);
@@ -141,7 +139,6 @@ BYTE hid_report[8];
 //char buffer[64]; //not sure why it doesn't work without this...
 
 volatile N64ControllerBitstream controller_data = {0};
-volatile BYTE controller_data_error;
 
 /** VECTOR REMAPPING ***********************************************/
 #if defined(__18CXX)
@@ -408,9 +405,7 @@ void processUsbCommands(void)
 
         //get updated data from controller
         for (;;) {
-            PollController();
-            
-            if (!controller_data_error) {
+            if (!PollController()) {
                 break;
             }
 
