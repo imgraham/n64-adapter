@@ -391,8 +391,6 @@ void applicationInit(void)
 // Process USB commands
 void processUsbCommands(void)
 {
-    static unsigned char read_error_count = 0;
-
     // Check if we are in the configured state; otherwise just return
     if((USBDeviceState < CONFIGURED_STATE) || (USBSuspendControl == 1))
     {
@@ -400,39 +398,41 @@ void processUsbCommands(void)
         return;
     }
 
-    // If the last transmision is complete send the joystick status
+    // If the last transmission is complete send the joystick status
     if(!HIDTxHandleBusy(lastTransmission))
     {
         char XAxis, YAxis;
         int XNew, YNew;
         int cY = 0;
+        unsigned char controller_reads = 0;
 
         //get updated data from controller
-        PollController();
+        for (;;) {
+            PollController();
+            
+            if (!controller_data_error) {
+                break;
+            }
 
-        //don't send anything if there was an issue getting controller data
-        if(controller_data_error) {
-            read_error_count++;
-            if(read_error_count > 5) {
+            //don't send anything if there was an issue getting controller data
+            if (controller_reads++ > 5) {
                 memset((char*)&controller_data, 0, sizeof(controller_data));
-            } else {
-                return;
+                break;
             }
         }
-        read_error_count = 0;
 
         //convert controller array to USB joystick data
         // Set the button values
-        joystickUSBBuffer.members.buttons.A = controller_data.A          & 0x01;
-        joystickUSBBuffer.members.buttons.B = controller_data.B          & 0x01;
-        joystickUSBBuffer.members.buttons.Z = controller_data.Z          & 0x01;
-        joystickUSBBuffer.members.buttons.Start = controller_data.Start  & 0x01;
-        joystickUSBBuffer.members.buttons.Up = controller_data.Up        & 0x01;
-        joystickUSBBuffer.members.buttons.Down = controller_data.Down    & 0x01;
-        joystickUSBBuffer.members.buttons.Left = controller_data.Left    & 0x01;
-        joystickUSBBuffer.members.buttons.Right = controller_data.Right  & 0x01;
-        joystickUSBBuffer.members.buttons.L = controller_data.L          & 0x01;
-        joystickUSBBuffer.members.buttons.R= controller_data.R           & 0x01;
+        joystickUSBBuffer.members.buttons.A = controller_data.A;
+        joystickUSBBuffer.members.buttons.B = controller_data.B;
+        joystickUSBBuffer.members.buttons.Z = controller_data.Z;
+        joystickUSBBuffer.members.buttons.Start = controller_data.Start;
+        joystickUSBBuffer.members.buttons.Up = controller_data.Up;
+        joystickUSBBuffer.members.buttons.Down = controller_data.Down;
+        joystickUSBBuffer.members.buttons.Left = controller_data.Left;
+        joystickUSBBuffer.members.buttons.Right = controller_data.Right;
+        joystickUSBBuffer.members.buttons.L = controller_data.L;
+        joystickUSBBuffer.members.buttons.R= controller_data.R;
         joystickUSBBuffer.members.hat_switch.hat_switch = HAT_SWITCH_NULL;
 
         //determine the hat position

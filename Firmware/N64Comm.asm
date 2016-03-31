@@ -171,14 +171,13 @@ sendCmd
 	    ; determine which part was longer (high vs low)
 	    ; store FF or 00 to represent 1 or 0
 	    subwf countLow, W ; TODO: idea - just increment the register at the start, then decrement it for the "waitLow" - if it's 0 at this point, the second half was longer...saves instructions
-	    movlw 0x00
+	    clrf INDF0
 	    btfsc STATUS, C
-            movlw 0xFF
-	    movwf INDF0         ; Wait & store the value of the bit in the array
+            setf INDF0
 	    incf FSR0L          ; Go to next adress in the array
 
 	    ; reset count variables for next loop
-	    movlw 0x7D ; not the full 0x7F because we ate a few cycles into the next bit
+	    movlw 0x7E ; not the full 0x7F because we ate a few cycles into the next bit
 
 	    decfsz d4           ; end loop if all 33 bits are read
 		goto readLoop
