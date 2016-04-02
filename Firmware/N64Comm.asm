@@ -81,8 +81,7 @@ PollController              ; Send the polling signal (0b00000001)
     movlw 0x01  ; 0x01 is the "Poll" command
     movwf output_byte
 
-    ;movlw 0x08
-    movlw 0x09 ; TODO: temporary for lack of proper stop bit
+    movlw 0x08
     movwf bit_count
     bra sendCmd
 
@@ -133,6 +132,14 @@ SendBits:
         bra SendBits
 
     ; TODO: send stop bit
+    bcf TRISC, 2
+    movlw 0x04 ; hold low for 1 us (12 cycles)
+    DELAY_LOOP WREG
+    bsf TRISC, 2
+
+    ; We can return now - since we're outputting one, we have at least 3us
+    ; before the controller should be sending a response. Since there's a pullup
+    ; on the line, we don't need to do anything more with the output
 
 ;read the response
 	;countLow and countHigh set before polling starts
