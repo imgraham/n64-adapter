@@ -116,8 +116,11 @@ typedef struct N64ControllerBitstream {
 #define C_LEFT 0x04
 #define C_RIGHT 0x08
 
-extern BYTE PollController(void);
-extern BYTE IdentifyController(void);
+//extern BYTE PollController(void);
+//extern BYTE IdentifyController(void);
+
+extern void N64CommSendCommand(BYTE cmd);
+extern BYTE N64CommReadData(void *data, BYTE size);
 
 // Private function prototypes
 void initialisePic(void);
@@ -383,6 +386,16 @@ void applicationInit(void)
 {
     // Initialize the variable holding the USB handle for the last transmission
     lastTransmission = 0;
+}
+
+static BYTE IdentifyController(void) {
+    N64CommSendCommand(0x00); // TODO: magic number
+    return N64CommReadData(&controller_data, 24);
+}
+
+static BYTE PollController(void) {
+    N64CommSendCommand(0x01); // TODO: magic number
+    return N64CommReadData(&controller_data, sizeof(controller_data));
 }
 
 // Process USB commands

@@ -5,16 +5,13 @@
 
 ; TODO: format this properly - directives shouldn't be in colummn 1,
 ; just labels and comments
-; TODO: pass these in via the stack instead of globals
-EXTERN controller_data
 
 cblock
-    d4  ; bit bount
     countLow    ; signal pulse low count
     countHigh   ; signal pulse high count
 
     output_byte ; the byte we're outputting
-    bit_count ; number of bits we're outputting
+    bit_count ; number of bits we're reading/writing
 endc
 
 CODE
@@ -61,38 +58,21 @@ WAIT_LINE_HIGH  macro timeout
 ; Exported functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; set up bits to send for controller ID request
-IdentifyController			; Send the controller ID signal (0b00000000)
-    ; Part 1 - Set up the number of bits to be sent and read
-    movlw 0x18              ; 0x18 = 24 bits
-    movwf d4                ; contains controller identifier
-
-    movlw 0x00  ; 0x01 is the "Identify" command
-    movwf output_byte
-    bra sendCmd
-
-; set up bits to send for controller poll request
-PollController              ; Send the polling signal (0b00000001)
-
-    ; Part 1 - Read the N64 controller and store the status values
-    movlw 0x20              ; 0x20 = 32 bits
-    movwf d4                ; contains the number of buttons
-
-    movlw 0x01  ; 0x01 is the "Poll" command
-    movwf output_byte
-
-    movlw 0x08
-    movwf bit_count
-    bra sendCmd
-
 ; sends the desired command to the controller, MSB first
-sendCmd
+N64CommSendCommand
     bsf TRISC, 2 ; make sure we're in high impedence mode for now
     bcf LATC, 2 ; This will allow us to output 0
+    
+    ; Read the parameters from the stack
+    ; BYTE cmd - byte we're sending
+    movlw 0xff
+    movff PLUSW1, output_byte
 
-    LFSR 0, controller_data	; set up the array address for storing response
+    ; We're outputting 8 bits
+    movlw 0x08
+    movwf bit_count
 
-SendBits:
+SendBit:
     ; Get the next bit to send out
     movlw 0x09 ; start out for a one (3us high)
     btfss output_byte, 7
@@ -129,7 +109,7 @@ SendBits:
     ; Shift left and loop if we haven't finished outputting yet
     rlcf output_byte
     decfsz bit_count
-        bra SendBits
+        bra SendBit
 
     ; TODO: send stop bit
     bcf TRISC, 2
@@ -140,14 +120,25 @@ SendBits:
     ; We can return now - since we're outputting one, we have at least 3us
     ; before the controller should be sending a response. Since there's a pullup
     ; on the line, we don't need to do anything more with the output
-
+return
+    
 ;read the response
-	;countLow and countHigh set before polling starts
-
+N64CommReadData
+    ; Read in the params 
+    ; void *data - the pointer to the output buffer
+    movlw 0xff
+    movff PLUSW1, FSR0H
+    decf WREG
+    movff PLUSW1, FSR0L
+    
+    ; BYTE size - the size of the data we're reading
+    decf WREG
+    movff PLUSW1, bit_count
+    
 	; Wait for the line to go low (delay while high)
     WAIT_LINE_HIGH 0x7F
 
-readLoop:
+ReadBit:
     ; count amount of time line is low (timeout isn't full 0x7F because we ate a few cycles into the next bit)
 	WAIT_LINE_LOW 0x7E
 
@@ -168,8 +159,8 @@ readLoop:
     movlw 0x7E ; not the full 0x7F because we ate a few cycles into the next bit
 
     ; TODO: (been a while) but it looks like this ignores the stop bit - should look into this and make proper note of it
-    decfsz d4           ; end loop if all 32 bits are read
-        bra readLoop
+    decfsz bit_count    ; end loop if all expected bits have been read
+        bra ReadBit
 
     ;indicate no data error (return 0)
     movlw 0x00
@@ -182,7 +173,7 @@ discardData
 return
 
 ; export functions to C
-GLOBAL PollController
-Global IdentifyController
+GLOBAL N64CommSendCommand
+Global N64CommReadData
 
 end
